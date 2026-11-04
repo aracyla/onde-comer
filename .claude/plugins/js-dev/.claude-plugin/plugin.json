@@ -1,0 +1,6 @@
+{
+  "name": "js-dev",
+  "version": "0.1.0",
+  "description": "JavaScript development workflows: write code, validate code and write tests, with basic starter standards.",
+  "keywords": ["javascript", "code-review", "testing", "guidelines"]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "onde-comer-local",
+  "owner": { "name": "aracyla" },
+  "plugins": [
+    { "name": "js-dev", "source": "./js-dev", "description": "JavaScript development workflows: write code, validate code and write tests." },
+    { "name": "css-dev", "source": "./css-dev", "description": "Plain CSS development workflows: create components and validate CSS (*.module.css)." }
+  ]
+}

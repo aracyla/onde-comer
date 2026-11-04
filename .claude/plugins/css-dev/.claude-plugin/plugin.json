@@ -1,0 +1,6 @@
+{
+  "name": "css-dev",
+  "version": "0.1.1",
+  "description": "Plain CSS development workflows: create components and validate existing CSS, using the *.module.css convention.",
+  "keywords": ["css", "css-modules", "components", "validation"]
+}

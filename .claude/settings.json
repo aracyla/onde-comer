@@ -1,0 +1,15 @@
+{
+  "enabledPlugins": {
+    "marola-devkit@marola-devkit": false,
+    "js-dev@onde-comer-local": true,
+    "css-dev@onde-comer-local": true
+  },
+  "extraKnownMarketplaces": {
+    "onde-comer-local": {
+      "source": {
+        "source": "directory",
+        "path": "/home/aracyla-purple/Repositories/Aracyladev/onde-comer/.claude/plugins"
+      }
+    }
+  }
+}
