@@ -1,0 +1,36 @@
+import type { Dictionary } from './index.ts';
+
+/** English strings. Must define every key of the pt-BR dictionary. */
+export const en: Dictionary = {
+  'meta.title': 'Where to eat',
+  'meta.description': 'Where to eat in Rio de Janeiro: restaurants, bars and cafés.',
+  'site.title': 'Where to eat!',
+  'site.subtitle': 'Restaurants, bars and cafés in Rio de Janeiro.',
+  'lang.switch': 'Português',
+  'filter.search': 'Search',
+  'filter.searchPlaceholder': 'Name, cuisine or neighbourhood',
+  'filter.amenity': 'Type',
+  'filter.cuisine': 'Cuisine',
+  'filter.hours': 'Open in the',
+  'filter.all': 'All',
+  'span.morning': 'Morning',
+  'span.afternoon': 'Afternoon',
+  'span.night': 'Night',
+  'amenity.restaurant': 'Restaurant',
+  'amenity.fast_food': 'Fast food',
+  'amenity.bar': 'Bar',
+  'amenity.cafe': 'Café',
+  'table.name': 'Name',
+  'table.type': 'Type',
+  'table.cuisine': 'Cuisine',
+  'table.suburb': 'Neighbourhood',
+  'table.hours': 'Hours',
+  'result.one': '{count} place',
+  'result.other': '{count} places',
+  'result.noHoursNote':
+    'Places without opening hours are hidden while filtering by hours.',
+  'result.empty': 'No places found.',
+  'result.loading': 'Loading…',
+  'result.loadError': 'Could not load the data.',
+  'footer.data': 'Data © OpenStreetMap contributors.',
+};

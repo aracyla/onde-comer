@@ -1,0 +1,14 @@
+/* Page regions share the same centered content column. */
+.site-header,
+.site-main,
+.site-footer {
+  width: 100%;
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+.site-main {
+  flex: 1;
+  padding-block: var(--space-6);
+}

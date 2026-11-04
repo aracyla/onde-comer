@@ -1,0 +1,9 @@
+.result-count {
+  margin-top: var(--space-6);
+  font-weight: 600;
+}
+
+.result-note {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}

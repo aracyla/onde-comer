@@ -3,27 +3,71 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Onde comer no Rio de Janeiro: restaurantes, bares e cafés."
-    />
+    <meta name="description" data-i18n-content="meta.description" />
     <link rel="icon" href="/favicon.ico" />
-    <title>Onde comer</title>
+    <title data-i18n="meta.title">Onde comer</title>
     <script type="module" src="/src/main.ts"></script>
   </head>
   <body>
     <header class="site-header">
-      <h1>Onde comer!</h1>
-      <p>Restaurantes, bares e cafés do Rio de Janeiro.</p>
+      <div>
+        <h1 data-i18n="site.title">Onde comer!</h1>
+        <p data-i18n="site.subtitle">Restaurantes, bares e cafés do Rio de Janeiro.</p>
+      </div>
+      <a class="lang-switch" href="en/" hreflang="en" data-locale-switch data-i18n="lang.switch">English</a>
     </header>
+
     <main class="site-main">
-      <p>Em breve: um guia para descobrir onde comer na cidade.</p>
+      <form id="filters" class="filters" role="search">
+        <label class="field field-search">
+          <span class="field-label" data-i18n="filter.search">Buscar</span>
+          <input class="input" type="search" name="q" data-i18n-placeholder="filter.searchPlaceholder" />
+        </label>
+        <label class="field">
+          <span class="field-label" data-i18n="filter.amenity">Tipo</span>
+          <select class="input" name="amenity">
+            <option value="" data-i18n="filter.all">Todos</option>
+            <option value="restaurant" data-i18n="amenity.restaurant">Restaurante</option>
+            <option value="fast_food" data-i18n="amenity.fast_food">Lanchonete</option>
+            <option value="bar" data-i18n="amenity.bar">Bar</option>
+            <option value="cafe" data-i18n="amenity.cafe">Café</option>
+          </select>
+        </label>
+        <label class="field">
+          <span class="field-label" data-i18n="filter.cuisine">Cozinha</span>
+          <select class="input" name="cuisine">
+            <option value="" data-i18n="filter.all">Todos</option>
+          </select>
+        </label>
+        <fieldset class="field span-options">
+          <legend class="field-label" data-i18n="filter.hours">Aberto de</legend>
+          <label class="check"><input type="checkbox" name="span" value="morning" /> <span data-i18n="span.morning">Manhã</span></label>
+          <label class="check"><input type="checkbox" name="span" value="afternoon" /> <span data-i18n="span.afternoon">Tarde</span></label>
+          <label class="check"><input type="checkbox" name="span" value="night" /> <span data-i18n="span.night">Noite</span></label>
+        </fieldset>
+      </form>
+
+      <p id="result-count" class="result-count" aria-live="polite"></p>
+      <p id="hours-note" class="result-note" data-i18n="result.noHoursNote" hidden>Lugares sem horário cadastrado ficam ocultos ao filtrar por horário.</p>
+
+      <div class="table-wrap">
+        <table class="places-table">
+          <thead>
+            <tr>
+              <th scope="col" data-i18n="table.name">Nome</th>
+              <th scope="col" data-i18n="table.type">Tipo</th>
+              <th scope="col" data-i18n="table.cuisine">Cozinha</th>
+              <th scope="col" data-i18n="table.suburb">Bairro</th>
+              <th scope="col" data-i18n="table.hours">Horário</th>
+            </tr>
+          </thead>
+          <tbody id="places-body"></tbody>
+        </table>
+      </div>
     </main>
+
     <footer class="site-footer">
-      <p>
-        Dados © colaboradores do
-        <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>.
-      </p>
+      <p><a href="https://www.openstreetmap.org/copyright" data-i18n="footer.data">Dados © colaboradores do OpenStreetMap.</a></p>
     </footer>
   </body>
 </html>

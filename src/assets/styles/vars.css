@@ -1,12 +1,12 @@
+/* Colors from the Flexoki light palette: https://stephango.com/flexoki */
 :root {
-  color-scheme: light dark;
-
-  --color-bg: #fbf7f2;
-  --color-surface: #ffffff;
-  --color-text: #2b2420;
-  --color-text-muted: #6b5f57;
-  --color-accent: #c2410c;
-  --color-border: #e7ddd3;
+  --color-bg: #fffcf0; /* paper */
+  --color-surface: #f2f0e5; /* base-50 */
+  --color-border: #dad8ce; /* base-150 */
+  --color-text: #100f0f; /* black */
+  --color-text-muted: #6f6e69; /* base-600 */
+  --color-accent: #5e409d; /* purple-600 */
+  --color-accent-2: #66800b; /* green-600 */
 
   --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
@@ -15,16 +15,6 @@
   --space-6: 1.5rem;
   --space-8: 2rem;
 
-  --content-width: 48rem;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #1c1917;
-    --color-surface: #292524;
-    --color-text: #f5f0eb;
-    --color-text-muted: #b5aaa1;
-    --color-accent: #fb923c;
-    --color-border: #44403c;
-  }
+  --radius: 0.375rem;
+  --content-width: 72rem;
 }

@@ -18,5 +18,8 @@
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "dependencies": {
+    "opening_hours": "^3.15.0"
+  }
 }

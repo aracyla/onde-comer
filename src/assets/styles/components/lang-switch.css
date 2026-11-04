@@ -1,0 +1,13 @@
+.lang-switch {
+  flex-shrink: 0;
+  padding: 0.25rem var(--space-2);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.lang-switch:hover {
+  background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+}
