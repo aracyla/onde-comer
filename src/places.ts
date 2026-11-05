@@ -4,7 +4,6 @@ export type Span = 'morning' | 'afternoon' | 'night';
 export const SPANS: readonly Span[] = ['morning', 'afternoon', 'night'];
 
 export interface Place {
-  id: string;
   name: string;
   amenity: string;
   cuisines: string[];
@@ -16,7 +15,6 @@ export interface Place {
 }
 
 interface Feature {
-  id: string;
   properties: Record<string, string | undefined>;
 }
 
@@ -41,7 +39,7 @@ function spanOfHour(hour: number): Span {
  * Spans in which a place is open at some point during the week. Values that
  * aren't valid OSM syntax (free text like "11 às 22 h") yield no spans.
  */
-export function spansFor(hours: string): Set<Span> {
+function spansFor(hours: string): Set<Span> {
   const spans = new Set<Span>();
   if (!hours) return spans;
 
@@ -68,7 +66,7 @@ export function spansFor(hours: string): Set<Span> {
   return spans;
 }
 
-function toPlace({ id, properties }: Feature): Place | null {
+function toPlace({ properties }: Feature): Place | null {
   const name = properties.name?.trim();
   if (!name) return null;
 
@@ -81,7 +79,6 @@ function toPlace({ id, properties }: Feature): Place | null {
   const hours = properties.opening_hours ?? '';
 
   return {
-    id,
     name,
     amenity,
     cuisines,

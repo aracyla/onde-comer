@@ -1,9 +1,9 @@
 import { ptBR } from './pt-br.ts';
 import { en } from './en.ts';
 
-export type MessageKey = keyof typeof ptBR;
+type MessageKey = keyof typeof ptBR;
 export type Dictionary = Record<MessageKey, string>;
-export type Locale = 'pt-BR' | 'en';
+type Locale = 'pt-BR' | 'en';
 
 const DICTIONARIES: Record<Locale, Dictionary> = { 'pt-BR': ptBR, en };
 
@@ -42,9 +42,9 @@ export function tCount(prefix: 'result', count: number): string {
 }
 
 /**
- * URL of the current page in `target` locale: `/base/about.html` ↔ `/base/en/about.html`.
+ * URL of the current page in `target` locale: `/base/` ↔ `/base/en/`.
  */
-export function localeUrl(target: Locale, { pathname, search } = location): string {
+function localeUrl(target: Locale, { pathname, search } = location): string {
   const path = pathname.startsWith(BASE_URL)
     ? pathname.slice(BASE_URL.length)
     : pathname.replace(/^\//, '');
