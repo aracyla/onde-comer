@@ -17,6 +17,7 @@
     "defaults"
   ],
   "dependencies": {
+    "maplibre-gl": "^6.16.0",
     "opening_hours": "^3.15.0"
   }
 }

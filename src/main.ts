@@ -1,6 +1,7 @@
 import './assets/styles/styles.css';
-import { hasKey, locale, setupLocale, t, tCount } from './i18n';
-import { loadPlaces, normalizeText, SPANS, type Place, type Span } from './places';
+import { amenityLabel, escapeHtml, hoursHtml, prettify } from './format';
+import { setupLocale, t, tCount } from './i18n';
+import { cuisinesByCount, loadPlaces, normalizeText, type Place, type Span } from './places';
 
 const DATA_URL = `${import.meta.env.BASE_URL}rio-food.geojson`;
 
@@ -10,32 +11,11 @@ const resultCount = document.querySelector<HTMLElement>('#result-count')!;
 const hoursNote = document.querySelector<HTMLElement>('#hours-note')!;
 const tableBody = document.querySelector<HTMLTableSectionElement>('#places-body')!;
 
-const escapeHtml = (text: string): string =>
-  text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-
-/** OSM values like "steak_house" → "steak house". */
-const prettify = (value: string): string => value.replace(/_/g, ' ');
-
-function amenityLabel(amenity: string): string {
-  const key = `amenity.${amenity}`;
-  return hasKey(key) ? t(key) : prettify(amenity);
-}
-
 /** Cuisine options, most common first. */
 function fillCuisineOptions(places: Place[]): void {
-  const counts = new Map<string, number>();
-  for (const place of places) {
-    for (const cuisine of place.cuisines) {
-      counts.set(cuisine, (counts.get(cuisine) ?? 0) + 1);
-    }
-  }
-  const options = [...counts]
-    .sort(([a, countA], [b, countB]) => countB - countA || a.localeCompare(b, locale))
-    .map(([cuisine]) => new Option(prettify(cuisine), cuisine));
+  const options = cuisinesByCount(places).map(
+    (cuisine) => new Option(prettify(cuisine), cuisine),
+  );
   cuisineSelect.append(...options);
 }
 
@@ -67,19 +47,12 @@ function matches(place: Place, { query, amenity, cuisine, spans }: Filters): boo
 }
 
 function rowHtml(place: Place): string {
-  const badges = SPANS.filter((span) => place.spans.has(span))
-    .map((span) => `<span class="badge">${t(`span.${span}`)}</span>`)
-    .join('');
-  const hours = place.hours
-    ? `<span class="hours-text">${escapeHtml(place.hours)}</span>${badges}`
-    : '—';
-
   return `<tr>
     <td>${escapeHtml(place.name)}</td>
     <td>${escapeHtml(amenityLabel(place.amenity))}</td>
     <td>${escapeHtml(place.cuisines.map(prettify).join(', ')) || '—'}</td>
     <td>${escapeHtml(place.suburb) || '—'}</td>
-    <td class="hours-cell">${hours}</td>
+    <td class="hours-cell">${hoursHtml(place)}</td>
   </tr>`;
 }
 

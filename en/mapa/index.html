@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Map of where to eat in Rio de Janeiro: restaurants, bars and cafés." />
+    <title>Map · Where to eat</title>
+    <script type="module" src="/src/map.ts"></script>
+  </head>
+  <body class="map-page">
+    <header class="site-header">
+      <div>
+        <h1>Where to eat!</h1>
+        <p><a href="../">← View list</a></p>
+      </div>
+      <a class="lang-switch" href="../../mapa/" hreflang="pt-BR" data-locale-switch>Português</a>
+    </header>
+
+    <main class="map-view">
+      <details class="map-panel" open>
+        <summary class="map-panel-toggle">Filters</summary>
+        <form id="map-filters" class="map-filters">
+          <label class="filter-group">
+            <span class="field-label">Search</span>
+            <input class="input" type="search" name="q" placeholder="Name, cuisine or neighbourhood" />
+          </label>
+
+          <fieldset class="filter-group">
+            <legend class="field-label">Type</legend>
+            <label class="check"><input type="checkbox" name="amenity" value="restaurant" checked /> <span class="legend-dot" data-amenity="restaurant"></span> <span>Restaurant</span></label>
+            <label class="check"><input type="checkbox" name="amenity" value="fast_food" checked /> <span class="legend-dot" data-amenity="fast_food"></span> <span>Fast food</span></label>
+            <label class="check"><input type="checkbox" name="amenity" value="bar" checked /> <span class="legend-dot" data-amenity="bar"></span> <span>Bar</span></label>
+            <label class="check"><input type="checkbox" name="amenity" value="cafe" checked /> <span class="legend-dot" data-amenity="cafe"></span> <span>Café</span></label>
+          </fieldset>
+
+          <fieldset class="filter-group">
+            <legend class="field-label">Hours</legend>
+            <label class="check"><input type="checkbox" name="span" value="morning" checked /> <span>Morning</span></label>
+            <label class="check"><input type="checkbox" name="span" value="afternoon" checked /> <span>Afternoon</span></label>
+            <label class="check"><input type="checkbox" name="span" value="night" checked /> <span>Night</span></label>
+            <label class="check"><input type="checkbox" name="span" value="unknown" checked /> <span>No hours listed</span></label>
+          </fieldset>
+
+          <fieldset class="filter-group">
+            <legend class="field-label">Cuisine</legend>
+            <div class="filter-actions">
+              <button type="button" class="text-button" data-cuisine-toggle="all">All</button>
+              <button type="button" class="text-button" data-cuisine-toggle="none">None</button>
+            </div>
+            <div id="cuisine-options" class="checklist">
+              <label class="check"><input type="checkbox" name="cuisine" value="" checked /> <span>Not listed</span></label>
+            </div>
+          </fieldset>
+        </form>
+        <p id="result-count" class="result-count" aria-live="polite"></p>
+      </details>
+
+      <div id="map" class="map-canvas"></div>
+    </main>
+
+    <dialog id="place-dialog" class="place-dialog">
+      <div class="place-dialog-body">
+      <form method="dialog" class="place-dialog-header">
+        <h2 data-field="name"></h2>
+        <button class="close-button" aria-label="Close">×</button>
+      </form>
+      <dl class="place-details">
+        <div><dt>Type</dt><dd data-field="amenity"></dd></div>
+        <div><dt>Cuisine</dt><dd data-field="cuisines"></dd></div>
+        <div><dt>Neighbourhood</dt><dd data-field="suburb"></dd></div>
+        <div><dt>Address</dt><dd data-field="address"></dd></div>
+        <div><dt>Hours</dt><dd data-field="hours"></dd></div>
+        <div><dt>Phone</dt><dd data-field="phone"></dd></div>
+        <div><dt>Site</dt><dd data-field="website"></dd></div>
+      </dl>
+      <p><a data-field="osm" target="_blank" rel="noopener">View on OpenStreetMap</a></p>
+      </div>
+    </dialog>
+
+    <footer class="site-footer">
+      <p><a href="https://www.openstreetmap.org/copyright">Data © OpenStreetMap contributors.</a></p>
+    </footer>
+  </body>
+</html>

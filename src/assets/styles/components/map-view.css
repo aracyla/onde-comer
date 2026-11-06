@@ -1,0 +1,126 @@
+/* Map page: header on top, then filter panel beside a map filling the rest of the viewport. */
+.map-page {
+  height: 100vh;
+  height: 100dvh;
+}
+
+.map-page .site-header {
+  padding-block: var(--space-4);
+}
+
+.map-page .site-header p {
+  margin-top: 0;
+}
+
+.map-page .site-footer {
+  padding-block: var(--space-2);
+}
+
+.map-view {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  border-top: 1px solid var(--color-border);
+}
+
+.map-panel {
+  flex: 0 0 17rem;
+  overflow-y: auto;
+  padding: var(--space-4);
+  border-right: 1px solid var(--color-border);
+}
+
+.map-panel-toggle {
+  display: none;
+}
+
+.map-filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.map-panel .result-count {
+  margin-top: var(--space-4);
+}
+
+.map-canvas {
+  flex: 1;
+  min-width: 0;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+
+.filter-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.text-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-accent);
+  font: inherit;
+  font-size: 0.875rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  max-height: 14rem;
+  overflow-y: auto;
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+/* Colors match AMENITY_COLORS in src/map.ts. */
+.legend-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+}
+
+.legend-dot[data-amenity='restaurant'] { background: #af3029; }
+.legend-dot[data-amenity='fast_food'] { background: #bc5215; }
+.legend-dot[data-amenity='bar'] { background: #5e409d; }
+.legend-dot[data-amenity='cafe'] { background: #205ea6; }
+
+/* Narrow screens: filters collapse into a <details> above the map. */
+@media (max-width: 40rem) {
+  .map-view {
+    flex-direction: column;
+  }
+
+  .map-panel {
+    flex: 0 1 auto;
+    max-height: 50%;
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .map-panel-toggle {
+    display: list-item;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .map-panel[open] .map-panel-toggle {
+    margin-bottom: var(--space-2);
+  }
+
+  .map-canvas {
+    min-height: 20rem;
+  }
+}

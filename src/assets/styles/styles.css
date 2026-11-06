@@ -8,4 +8,6 @@
 @import './components/results.css';
 @import './components/places-table.css';
 @import './components/badge.css';
+@import './components/map-view.css';
+@import './components/place-dialog.css';
 @import './components/site-footer.css';

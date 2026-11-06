@@ -1,20 +1,35 @@
 import opening_hours from 'opening_hours';
+import { locale } from './i18n';
 
 export type Span = 'morning' | 'afternoon' | 'night';
 export const SPANS: readonly Span[] = ['morning', 'afternoon', 'night'];
 
+export type LngLat = [number, number];
+
 export interface Place {
+  /** OSM element id, e.g. "n299619458" (node) or "w123" (way). */
+  osmId: string;
   name: string;
   amenity: string;
   cuisines: string[];
   suburb: string;
+  address: string;
+  phone: string;
+  website: string;
   hours: string;
   spans: ReadonlySet<Span>;
   /** Accent-free, lower-case text the search box matches against. */
   searchText: string;
+  coordinates: LngLat;
 }
 
+type Geometry =
+  | { type: 'Point'; coordinates: LngLat }
+  | { type: 'MultiPolygon'; coordinates: LngLat[][][] };
+
 interface Feature {
+  id?: string;
+  geometry: Geometry | null;
   properties: Record<string, string | undefined>;
 }
 
@@ -66,9 +81,19 @@ function spansFor(hours: string): Set<Span> {
   return spans;
 }
 
-function toPlace({ properties }: Feature): Place | null {
+/** The point itself, or the average vertex of a polygon's outer ring. */
+function pinCoordinates(geometry: Geometry | null): LngLat | null {
+  if (geometry?.type === 'Point') return geometry.coordinates;
+  const ring = geometry?.type === 'MultiPolygon' ? geometry.coordinates[0]?.[0] : undefined;
+  if (!ring?.length) return null;
+  const sum = ring.reduce(([lng, lat], [x, y]) => [lng + x, lat + y], [0, 0]);
+  return [sum[0] / ring.length, sum[1] / ring.length];
+}
+
+function toPlace({ id, geometry, properties }: Feature): Place | null {
   const name = properties.name?.trim();
-  if (!name) return null;
+  const coordinates = pinCoordinates(geometry);
+  if (!name || !coordinates) return null;
 
   const amenity = properties.amenity ?? '';
   const cuisines = (properties.cuisine ?? '')
@@ -78,14 +103,23 @@ function toPlace({ properties }: Feature): Place | null {
   const suburb = properties['addr:suburb'] ?? '';
   const hours = properties.opening_hours ?? '';
 
+  const address = [properties['addr:street'], properties['addr:housenumber']]
+    .filter(Boolean)
+    .join(', ');
+
   return {
+    osmId: id ?? '',
     name,
     amenity,
     cuisines,
     suburb,
+    address,
+    phone: properties.phone ?? '',
+    website: properties.website ?? '',
     hours,
     spans: spansFor(hours),
     searchText: normalizeText([name, suburb, ...cuisines].join(' ')),
+    coordinates,
   };
 }
 
@@ -101,4 +135,17 @@ export async function loadPlaces(url: string): Promise<Place[]> {
     .map(toPlace)
     .filter((place): place is Place => place !== null)
     .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/** Every cuisine found in `places`, most common first. */
+export function cuisinesByCount(places: Place[]): string[] {
+  const counts = new Map<string, number>();
+  for (const place of places) {
+    for (const cuisine of place.cuisines) {
+      counts.set(cuisine, (counts.get(cuisine) ?? 0) + 1);
+    }
+  }
+  return [...counts]
+    .sort(([a, countA], [b, countB]) => countB - countA || a.localeCompare(b, locale))
+    .map(([cuisine]) => cuisine);
 }

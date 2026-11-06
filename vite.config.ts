@@ -5,7 +5,12 @@ export default defineConfig({
   base: '/onde-comer/',
   build: {
     rollupOptions: {
-      input: { main: 'index.html', en: 'en/index.html' },
+      input: {
+        main: 'index.html',
+        en: 'en/index.html',
+        map: 'mapa/index.html',
+        enMap: 'en/mapa/index.html',
+      },
     },
   },
 });
